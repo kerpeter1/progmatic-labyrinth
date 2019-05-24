@@ -18,7 +18,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import players.randomPlayerImpl;
+import players.RandomPlayer;
+import players.WallFollowerPlayer;
 
 /**
  *
@@ -386,14 +387,12 @@ public class LabyrinthTest {
         return new LabyrinthImpl();
     }
 
-    // TODO
     private Player getRandomPlayerImpl() {
-        return new randomPlayerImpl();
+        return new RandomPlayer();
     }
 
-    // TODO
     private Player getWallFollowerPlayerImpl() {
-        return null;
+        return new WallFollowerPlayer();
     }
 
     // TODO
