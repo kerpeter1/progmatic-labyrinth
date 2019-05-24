@@ -102,12 +102,17 @@ public class LabyrinthImpl implements Labyrinth {
 
     @Override
     public Coordinate getPlayerPosition() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return playerPosition;
     }
 
     @Override
     public boolean hasPlayerFinished() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            return getCellType(playerPosition) == CellType.END;
+        } catch (CellException ex) {
+            Logger.getLogger(LabyrinthImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
