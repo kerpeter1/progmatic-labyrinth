@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,6 +20,7 @@ public class LabyrinthImpl implements Labyrinth {
 
     //1st dim: row, 2nd dim:column
     private CellType[][] labyrinth;
+    Coordinate playerPosition;
 
     public LabyrinthImpl() {
 
@@ -38,19 +41,21 @@ public class LabyrinthImpl implements Labyrinth {
                 for (int ww = 0; ww < width; ww++) {
                     switch (line.charAt(ww)) {
                         case 'W':
-                            labyrinth[hh][ww] = CellType.WALL;
+                            setCellType(new Coordinate(hh, ww), CellType.WALL);
                             break;
                         case 'E':
-                            labyrinth[hh][ww] = CellType.END;
+                            setCellType(new Coordinate(hh, ww), CellType.END);
                             break;
                         case 'S':
-                            labyrinth[hh][ww] = CellType.START;
+                            setCellType(new Coordinate(hh, ww), CellType.START);
                             break;
                     }
                 }
             }
         } catch (FileNotFoundException | NumberFormatException ex) {
             System.out.println(ex.toString());
+        } catch (CellException ex) {
+            Logger.getLogger(LabyrinthImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -86,7 +91,13 @@ public class LabyrinthImpl implements Labyrinth {
 
     @Override
     public void setCellType(Coordinate c, CellType type) throws CellException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        getCellType(c);
+        labyrinth[c.getRow()][c.getCol()] = type;
+
+        if (type == CellType.START) {
+            playerPosition = new Coordinate(c.getRow(), c.getCol());
+        }
     }
 
     @Override
