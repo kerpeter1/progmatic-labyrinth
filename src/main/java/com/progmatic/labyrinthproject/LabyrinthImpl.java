@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class LabyrinthImpl implements Labyrinth {
 
-    //1st dim: row, 2nd dim:column
+    //1st dim: column, 2nd dim:row
     private CellType[][] labyrinth;
     Coordinate playerPosition;
 
@@ -33,21 +33,20 @@ public class LabyrinthImpl implements Labyrinth {
             int width = Integer.parseInt(sc.nextLine());
             int height = Integer.parseInt(sc.nextLine());
 
-            labyrinth = new CellType[height][width];
-            System.out.println("ok");
+            setSize(width, height);
 
             for (int hh = 0; hh < height; hh++) {
                 String line = sc.nextLine();
                 for (int ww = 0; ww < width; ww++) {
                     switch (line.charAt(ww)) {
                         case 'W':
-                            setCellType(new Coordinate(hh, ww), CellType.WALL);
+                            setCellType(new Coordinate(ww, hh), CellType.WALL);
                             break;
                         case 'E':
-                            setCellType(new Coordinate(hh, ww), CellType.END);
+                            setCellType(new Coordinate(ww, hh), CellType.END);
                             break;
                         case 'S':
-                            setCellType(new Coordinate(hh, ww), CellType.START);
+                            setCellType(new Coordinate(ww, hh), CellType.START);
                             break;
                     }
                 }
@@ -61,12 +60,12 @@ public class LabyrinthImpl implements Labyrinth {
 
     @Override
     public int getWidth() {
-        return labyrinth == null ? -1 : labyrinth[0].length;
+        return labyrinth == null ? -1 : labyrinth.length;
     }
 
     @Override
     public int getHeight() {
-        return labyrinth == null ? -1 : labyrinth.length;
+        return labyrinth == null ? -1 : labyrinth[0].length;
     }
 
     @Override
@@ -75,7 +74,7 @@ public class LabyrinthImpl implements Labyrinth {
                 || c.getCol() < 0 || c.getCol() >= getWidth()) {
             throw new CellException(c, "Out of labyrinth bounds exception");
         }
-        return labyrinth[c.getRow()][c.getCol()];
+        return labyrinth[c.getCol()][c.getRow()];
     }
 
     @Override
@@ -93,10 +92,10 @@ public class LabyrinthImpl implements Labyrinth {
     public void setCellType(Coordinate c, CellType type) throws CellException {
 
         getCellType(c);
-        labyrinth[c.getRow()][c.getCol()] = type;
+        labyrinth[c.getCol()][c.getRow()] = type;
 
         if (type == CellType.START) {
-            playerPosition = new Coordinate(c.getRow(), c.getCol());
+            playerPosition = new Coordinate(c.getCol(), c.getRow());
         }
     }
 
