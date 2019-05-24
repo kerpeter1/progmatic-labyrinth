@@ -14,7 +14,7 @@ import com.progmatic.labyrinthproject.interfaces.Player;
  *
  * @author Peti 2
  */
-public class randomPlayerImpl implements Player {
+public class RandomPlayer implements Player {
 
     @Override
     public Direction nextMove(Labyrinth l) {
