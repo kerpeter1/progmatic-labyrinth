@@ -7,6 +7,7 @@ import com.progmatic.labyrinthproject.exceptions.InvalidMoveException;
 import com.progmatic.labyrinthproject.interfaces.Labyrinth;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -79,7 +80,7 @@ public class LabyrinthImpl implements Labyrinth {
 
     @Override
     public void setSize(int width, int height) {
-        labyrinth = new CellType[height][width];
+        labyrinth = new CellType[width][height];
 
         for (int i = 0; i < labyrinth.length; i++) {
             for (int j = 0; j < labyrinth[i].length; j++) {
@@ -116,7 +117,27 @@ public class LabyrinthImpl implements Labyrinth {
 
     @Override
     public List<Direction> possibleMoves() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Direction> dir = new ArrayList<>();
+        int col = playerPosition.getCol();
+        int row = playerPosition.getRow();
+
+        try {
+            if (row > 0 && getCellType(new Coordinate(col, row - 1)) == CellType.EMPTY) {
+                dir.add(Direction.NORTH);
+            }
+            if (col > 0 && getCellType(new Coordinate(col - 1, row)) == CellType.EMPTY) {
+                dir.add(Direction.WEST);
+            }
+            if (row < getHeight() - 1 && getCellType(new Coordinate(col, row + 1)) == CellType.EMPTY) {
+                dir.add(Direction.SOUTH);
+            }
+            if (col < getWidth() - 1 && getCellType(new Coordinate(col + 1, row)) == CellType.EMPTY) {
+                dir.add(Direction.EAST);
+            }
+        } catch (CellException ex) {
+            Logger.getLogger(LabyrinthImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dir;
     }
 
     @Override
