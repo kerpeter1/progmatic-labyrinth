@@ -56,12 +56,12 @@ public class LabyrinthImpl implements Labyrinth {
 
     @Override
     public int getWidth() {
-
+        return labyrinth == null ? -1 : labyrinth[0].length;
     }
 
     @Override
     public int getHeight() {
-
+        return labyrinth == null ? -1 : labyrinth.length;
     }
 
     @Override
