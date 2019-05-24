@@ -142,7 +142,29 @@ public class LabyrinthImpl implements Labyrinth {
 
     @Override
     public void movePlayer(Direction direction) throws InvalidMoveException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int col = playerPosition.getCol();
+        int row = playerPosition.getRow();
+        List<Direction> p = possibleMoves();
+
+        if (p.contains(direction)) {
+            switch (direction) {
+                case NORTH:
+                    playerPosition = new Coordinate(col, row - 1);
+                    break;
+                case WEST:
+                    playerPosition = new Coordinate(col - 1, row);
+                    break;
+                case SOUTH:
+                    playerPosition = new Coordinate(col, row + 1);
+                    break;
+                case EAST:
+                    playerPosition = new Coordinate(col + 1, row);
+                    break;
+            }
+
+        } else {
+            throw new InvalidMoveException();
+        }
     }
 
 }
