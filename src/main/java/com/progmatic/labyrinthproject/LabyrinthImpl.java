@@ -122,16 +122,16 @@ public class LabyrinthImpl implements Labyrinth {
         int row = playerPosition.getRow();
 
         try {
-            if (row > 0 && getCellType(new Coordinate(col, row - 1)) == CellType.EMPTY) {
+            if (row > 0 && getCellType(new Coordinate(col, row - 1)) != CellType.WALL) {
                 dir.add(Direction.NORTH);
             }
-            if (col > 0 && getCellType(new Coordinate(col - 1, row)) == CellType.EMPTY) {
+            if (col > 0 && getCellType(new Coordinate(col - 1, row)) != CellType.WALL) {
                 dir.add(Direction.WEST);
             }
-            if (row < getHeight() - 1 && getCellType(new Coordinate(col, row + 1)) == CellType.EMPTY) {
+            if (row < getHeight() - 1 && getCellType(new Coordinate(col, row + 1)) != CellType.WALL) {
                 dir.add(Direction.SOUTH);
             }
-            if (col < getWidth() - 1 && getCellType(new Coordinate(col + 1, row)) == CellType.EMPTY) {
+            if (col < getWidth() - 1 && getCellType(new Coordinate(col + 1, row)) != CellType.WALL) {
                 dir.add(Direction.EAST);
             }
         } catch (CellException ex) {
@@ -161,7 +161,6 @@ public class LabyrinthImpl implements Labyrinth {
                     playerPosition = new Coordinate(col + 1, row);
                     break;
             }
-
         } else {
             throw new InvalidMoveException();
         }
