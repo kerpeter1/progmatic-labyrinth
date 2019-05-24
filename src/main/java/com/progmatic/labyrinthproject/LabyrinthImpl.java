@@ -56,12 +56,12 @@ public class LabyrinthImpl implements Labyrinth {
 
     @Override
     public int getWidth() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
     public int getHeight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
@@ -71,7 +71,13 @@ public class LabyrinthImpl implements Labyrinth {
 
     @Override
     public void setSize(int width, int height) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        labyrinth = new CellType[height][width];
+
+        for (int i = 0; i < labyrinth.length; i++) {
+            for (int j = 0; j < labyrinth[i].length; j++) {
+                labyrinth[i][j] = CellType.EMPTY;
+            }
+        }
     }
 
     @Override
